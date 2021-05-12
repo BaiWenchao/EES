@@ -7,10 +7,10 @@
     </el-col>
     <el-col :span="8" :xs="{span:18,offset:5}">
         <div class="login_box_right">
-            <el-form :model="loginForm" :rules="loginRules" label-width="80px" class="login_form">
+            <el-form :model="loginForm" :rules="loginRules" label-width="80px" class="login_form" v-show="!isFindPassword">
                 <p class="login_title">Login</p>
-                <el-form-item prop="username" label="账号" class="login_form_item">
-                    <el-input v-model="loginForm.username" prefix-icon="el-icon-user"></el-input>
+                <el-form-item prop="account" label="账号" class="login_form_item">
+                    <el-input v-model="loginForm.account" prefix-icon="el-icon-user"></el-input>
                 </el-form-item>
                 <el-form-item prop="password" label="密码" class="login_form_item">
                     <el-input v-model="loginForm.password" prefix-icon="el-icon-lock" show-password></el-input>
@@ -18,7 +18,21 @@
                 <el-form-item>
                     <el-button type="primary" class="login_form_button">登录</el-button>
                 </el-form-item>
-                <el-button type="text" style="float:right;margin-right:30px;">忘记密码</el-button>
+                <el-button type="text" style="float:right;margin-right:30px;" @click="isFindPassword=!isFindPassword">忘记密码</el-button>
+            </el-form>
+
+            <el-form :model="findPasswordForm" :rules="findPasswordRules" label-width="80px" class="login_form" v-show="isFindPassword">
+                <p class="login_title">Find Password</p>
+                <el-form-item prop="account" label="账号" class="login_form_item">
+                    <el-input v-model="findPasswordForm.account" prefix-icon="el-icon-user"></el-input>
+                </el-form-item>
+                <el-form-item prop="email" label="邮箱" class="login_form_item">
+                    <el-input v-model="findPasswordForm.email" prefix-icon="el-icon-message"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" class="login_form_button" @click="confirmFind">确认提交</el-button>
+                </el-form-item>
+                <el-button type="text" style="float:right;margin-right:30px;" @click="isFindPassword=!isFindPassword">去登录</el-button>
             </el-form>
       </div>
     </el-col>
@@ -26,23 +40,52 @@
 </template>
 
 <script>
+import { ElMessage } from 'element-plus'
 export default {
   name: 'Login',
   data () {
     return {
       styleObject: {},
       loginForm: {
-        username: '',
+        account: '',
         password: ''
       },
       loginRules: {
-        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+        account: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
+      },
+      isFindPassword: false,
+      findPasswordForm: {
+        account: '',
+        email: ''
+      },
+      findPasswordRules: {
+        account: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+        email: [{ required: true, message: '请输入邮箱', trigger: 'blur' }]
+      }
+    }
+  },
+  methods: {
+    confirmFind () {
+      if (this.findPasswordForm.account === '' || this.findPasswordForm.email === '') {
+        ElMessage.error({
+          message: '请填写账号和邮箱',
+          type: 'error'
+        })
+      } else {
+        this.findPasswordForm.account = ''
+        this.findPasswordForm.email = ''
+        ElMessage.success({
+          message: '提交成功',
+          type: 'success'
+        })
+        this.isFindPassword = !this.isFindPassword
       }
     }
   },
   mounted () {
     this.styleObject.height = (window.innerHeight - this.$el.getBoundingClientRect().top) + 'px'
+    console.log(this.isFindPassword)
   }
 }
 </script>
