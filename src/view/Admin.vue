@@ -48,7 +48,7 @@
         </el-table>
 
         <div class="pagination">
-            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" background
+            <el-pagination
             :current-page="1"
             :page-sizes="[100, 200, 300, 400]"
             :page-size="100"
@@ -113,25 +113,25 @@
 
         <el-dialog title="新建用户" v-model="newDialogVisible" width="40%" center>
             <el-form :model="advancedSearchForm" label-width="80px" label-position="left">
-                <el-form-item label="账号">
+                <el-form-item label="账号" required>
                     <el-input v-model="advancedSearchForm.account"></el-input>
                 </el-form-item>
-                <el-form-item label="密码">
+                <el-form-item label="密码" required>
                     <el-input v-model="advancedSearchForm.password"></el-input>
                 </el-form-item>
-                <el-form-item label="性别">
+                <el-form-item label="性别" required>
                     <el-select v-model="advancedSearchForm.sex">
                         <el-option :value="'男'" :label="'男'"></el-option>
                         <el-option :value="'女'" :label="'女'"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="年龄">
+                <el-form-item label="年龄" required>
                     <el-input v-model="advancedSearchForm.age"></el-input>
                 </el-form-item>
-                <el-form-item label="员工编号">
+                <el-form-item label="员工编号" required>
                     <el-input v-model="advancedSearchForm.staffNumber"></el-input>
                 </el-form-item>
-                <el-form-item label="员工类型">
+                <el-form-item label="员工类型" required>
                     <el-select v-model="advancedSearchForm.type">
                         <el-option :value="'staff'" :label="'工作人员'"></el-option>
                         <el-option :value="'admin'" :label="'管理员'"></el-option>
@@ -139,7 +139,7 @@
                         <el-option :value="'expert'" :label="'专家'"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="状态">
+                <el-form-item label="状态" required>
                     <el-select v-model="advancedSearchForm.state">
                         <el-option :value="'normal'" :label="'正常'"></el-option>
                         <el-option :value="'disabled'" :label="'停用'"></el-option>
@@ -156,28 +156,28 @@
 
         <el-dialog title="编辑" v-model="editDialogVisible" width="40%" center>
             <el-form :model="editForm" label-width="80px" label-position="left">
-                <el-form-item label="ID">
+                <el-form-item label="ID" required>
                     <el-input v-model="editForm.id" disabled></el-input>
                 </el-form-item>
-                <el-form-item label="账号">
+                <el-form-item label="账号" required>
                     <el-input v-model="editForm.account" disabled></el-input>
                 </el-form-item>
-                <el-form-item label="密码">
+                <el-form-item label="密码" required>
                     <el-input v-model="editForm.password"></el-input>
                 </el-form-item>
-                <el-form-item label="性别">
+                <el-form-item label="性别" required>
                     <el-select v-model="editForm.sex">
                         <el-option :value="'男'" :label="'男'"></el-option>
                         <el-option :value="'女'" :label="'女'"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="年龄">
+                <el-form-item label="年龄" required>
                     <el-input v-model="editForm.age"></el-input>
                 </el-form-item>
-                <el-form-item label="员工编号">
+                <el-form-item label="员工编号" required>
                     <el-input v-model="editForm.staffNumber"></el-input>
                 </el-form-item>
-                <el-form-item label="员工类型">
+                <el-form-item label="员工类型" required>
                     <el-select v-model="editForm.type">
                         <el-option :value="'staff'" :label="'工作人员'"></el-option>
                         <el-option :value="'admin'" :label="'管理员'"></el-option>
@@ -185,7 +185,7 @@
                         <el-option :value="'expert'" :label="'专家'"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="状态">
+                <el-form-item label="状态" required>
                     <el-select v-model="editForm.state">
                         <el-option :value="'normal'" :label="'正常'"></el-option>
                         <el-option :value="'disabled'" :label="'停用'"></el-option>

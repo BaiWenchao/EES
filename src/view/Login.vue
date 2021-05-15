@@ -16,7 +16,7 @@
                     <el-input v-model="loginForm.password" prefix-icon="el-icon-lock" show-password></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" class="login_form_button">登录</el-button>
+                    <el-button type="primary" class="login_form_button" @click="login">登录</el-button>
                 </el-form-item>
                 <el-button type="text" style="float:right;margin-right:30px;" @click="isFindPassword=!isFindPassword">忘记密码</el-button>
             </el-form>
@@ -80,6 +80,27 @@ export default {
           type: 'success'
         })
         this.isFindPassword = !this.isFindPassword
+      }
+    },
+    login () {
+      if (this.loginForm.account === '1') {
+        this.$router.push('/admin')
+      }
+      switch (this.loginForm.account) {
+        case '1':
+          this.$router.push('/admin')
+          this.$store.commit('login', { type: 'admin' })
+          break
+        case '2':
+          this.$router.push('/staff')
+          this.$store.commit('login', { type: 'staff' })
+          break
+        case '3': this.$router.push('/commander/reporthandle')
+          this.$store.commit('login', { type: 'commander' })
+          break
+        case '4': this.$router.push('/expert')
+          this.$store.commit('login', { type: 'expert' })
+          break
       }
     }
   },

@@ -4,7 +4,11 @@ import Staff from '../view/Staff.vue'
 import Login from '../view/Login.vue'
 import Expert from '../view/Expert.vue'
 import Commander from '../view/Commander.vue'
-import store from '../store/index'
+// import store from '../store/index'
+
+import ReportHandle from '../component/commander/ReportHandle.vue'
+import EmergencyHandle from '../component/commander/EmergencyHandle.vue'
+import Approval from '../component/commander/Approval.vue'
 
 const routes = [
   {
@@ -30,7 +34,21 @@ const routes = [
   {
     name: 'commander',
     path: '/commander',
-    component: Commander
+    component: Commander,
+    children: [
+      {
+        path: 'reporthandle',
+        component: ReportHandle
+      },
+      {
+        path: 'emergencyhandle',
+        component: EmergencyHandle
+      },
+      {
+        path: 'approval',
+        component: Approval
+      }
+    ]
   }
 ]
 
@@ -39,29 +57,29 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to) => {
-  let allow = false
+// router.beforeEach((to) => {
+//   let allow = false
 
-  switch (store.state.userInformation.type) {
-    case 'admin':
-      // 可以去的路由
-      to.name === 'admin' || to.name === 'login' ? allow = true : allow = false
-      break
-    case 'staff':
-      // 可以去的路由
+//   switch (store.state.userInformation.type) {
+//     case 'admin':
+//       // 可以去的路由
+//       to.name === 'admin' || to.name === 'login' ? allow = true : allow = '/'
+//       break
+//     case 'staff':
+//       // 可以去的路由
 
-      break
-    case 'commander':
+//       break
+//     case 'commander':
 
-      break
-    case 'expert':
+//       break
+//     case 'expert':
 
-      break
-    default:
-      to.name === 'login' ? allow = true : allow = false
-  }
+//       break
+//     default:
+//       to.name === 'login' ? allow = true : allow = '/'
+//   }
 
-  return allow
-})
+//   return allow
+// })
 
 export default router

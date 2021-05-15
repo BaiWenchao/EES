@@ -9,7 +9,7 @@
         <!--用户submenu -->
         <el-submenu index="1" class="user_submenu">
             <template #title><i class="el-icon-s-custom"></i><span>{{type}}</span></template>
-            <el-menu-item index="1" class="user_submenu_item">{{subMenuItem1}}</el-menu-item>
+            <el-menu-item index="1" class="user_submenu_item" @click="$store.commit('exit');$router.push('/')">{{subMenuItem1}}</el-menu-item>
         </el-submenu>
     </el-menu>
 </header>
