@@ -11,11 +11,11 @@
                 <i class="el-icon-document-checked"></i>
                 <template #title>事件维护</template>
             </el-menu-item>
-            <el-menu-item index="3" class="menu_item">
+            <el-menu-item index="/staff/materialmaintain" class="menu_item">
                 <i class="el-icon-box"></i>
                 <template #title>物资信息</template>
             </el-menu-item>
-            <el-menu-item index="4" class="menu_item">
+            <el-menu-item index="/staff/materialLocation" class="menu_item">
                 <i class="el-icon-location-outline"></i>
                 <template #title>物资点信息</template>
             </el-menu-item>

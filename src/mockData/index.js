@@ -238,3 +238,75 @@ export const enterpriseMaintainInfo = [
     enterpriseType: '互联网'
   }
 ]
+
+// 物资点信息维护
+export const materialLocationInfo = [
+  {
+    id: '001',
+    locationName: '东北大学',
+    locationDirector: '笑死',
+    address: '浑南区'
+  },
+  {
+    id: '001',
+    locationName: '东北大学',
+    locationDirector: '笑死',
+    address: '浑南区'
+  },
+  {
+    id: '001',
+    locationName: '东北大学',
+    locationDirector: '笑死',
+    address: '浑南区'
+  },
+  {
+    id: '001',
+    locationName: '东北大学',
+    locationDirector: '笑死',
+    address: '浑南区'
+  }
+]
+
+// 物资信息
+export const materialMaintainInfo = [
+  {
+    id: '1',
+    materialName: '签字笔',
+    materialAmount: '90',
+    materialType: '器材工具',
+    materialCounter: '小苏',
+    counterTelephone: '123',
+    materialNumber: '234',
+    date: '2021/9/1'
+  },
+  {
+    id: '1',
+    materialName: '签字笔',
+    materialAmount: '90',
+    materialType: '器材工具',
+    materialCounter: '小苏',
+    counterTelephone: '123',
+    materialNumber: '234',
+    date: '2021/9/1'
+  },
+  {
+    id: '1',
+    materialName: '签字笔',
+    materialAmount: '90',
+    materialType: '器材工具',
+    materialCounter: '小苏',
+    counterTelephone: '123',
+    materialNumber: '234',
+    date: '2021/9/1'
+  },
+  {
+    id: '1',
+    materialName: '签字笔',
+    materialAmount: '90',
+    materialType: '器材工具',
+    materialCounter: '小苏',
+    counterTelephone: '123',
+    materialNumber: '234',
+    date: '2021/9/1'
+  }
+]

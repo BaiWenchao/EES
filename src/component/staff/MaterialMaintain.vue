@@ -1,0 +1,171 @@
+<template>
+  <div>
+    <div>
+        <el-button type="text" icon="el-icon-document-add" style="margin-left:10px;margin-right:10px;" @click="newDialogVisible=true">新增</el-button>
+        <el-button type="text" icon="el-icon-search" style="float:right;margin-right:10px" @Click="searchDialogVisible=true">高级筛选</el-button>
+        <el-button type="text" icon="el-icon-refresh-left" style="float:right;margin-right:5px" @click="filterList=reportInfo">取消筛选</el-button>
+        <el-input size="mini" placeholder="输入关键字搜索" style="width:20%;float:right;margin-top:5px;">
+            <template #append><el-button icon="el-icon-search"></el-button></template>
+        </el-input>
+    </div>
+
+    <el-table :data="materialMaintainInfo" style="width: 100%" stripe>
+        <el-table-column prop="id" label="ID"></el-table-column>
+        <el-table-column prop="materialName" label="物资名称"></el-table-column>
+        <el-table-column prop="materialAmount" label="物资数量"></el-table-column>
+        <el-table-column prop="materialType" label="物资类型"></el-table-column>
+        <el-table-column prop="materialCounter" label="物资清点人"></el-table-column>
+        <el-table-column prop="counterTelephone" label="物资清点人电话"></el-table-column>
+        <el-table-column prop="materialNumber" label="物资编号"></el-table-column>
+        <el-table-column prop="date" label="物资清点时间"></el-table-column>
+        <el-table-column align="center" label="操作">
+            <template #default="scope">
+                <el-button size="mini" type="text" icon="el-icon-document" @click="handleEdit(scope.row)">修改</el-button>
+                <el-button size="mini" type="text" icon="el-icon-warning-outline" @click="handleDelete(scope.row)">删除</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+
+    <div class="pagination" style="margin-top:5px;">
+        <el-pagination
+        :current-page="1"
+        :page-sizes="[100, 200, 300, 400]"
+        :page-size="100"
+        layout="total, prev, pager, next, jumper"
+        :total="400">
+        </el-pagination>
+    </div>
+
+    <el-dialog title="修改" v-model="editDialogVisible" width="40%" center>
+        <el-form :model="editForm" label-width="120px" label-position="left">
+            <el-form-item label="ID" required>
+                <el-input v-model="editForm.id" disabled></el-input>
+            </el-form-item>
+            <el-form-item label="物资名称" required>
+                <el-input v-model="editForm.materialName"></el-input>
+            </el-form-item>
+            <el-form-item label="物资数量" required>
+                <el-input v-model="editForm.materialAmount"></el-input>
+            </el-form-item>
+            <el-form-item label="物资类型" required>
+                <el-input v-model="editForm.materialType"></el-input>
+            </el-form-item>
+            <el-form-item label="物资清点人" required>
+                <el-input v-model="editForm.materialCounter"></el-input>
+            </el-form-item>
+            <el-form-item label="清点人电话" required>
+                <el-input v-model="editForm.counterTelephone"></el-input>
+            </el-form-item>
+            <el-form-item label="物资编号" required>
+                <el-input v-model="editForm.materialNumber"></el-input>
+            </el-form-item>
+            <el-form-item label="物资清点时间" required>
+                    <el-date-picker v-model="editForm.date" type="date" placeholder="选择日期"></el-date-picker>
+            </el-form-item>
+        </el-form>
+        <template #footer>
+            <span class="dialog-footer">
+                <el-button @click="editDialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="editDialogVisible = false ;$message({type: 'success',message: '编辑成功!'})">确 定</el-button>
+            </span>
+        </template>
+
+        </el-dialog>
+            <el-dialog title="新增" v-model="newDialogVisible" width="40%" center>
+                <el-form :model="advancedSearchForm" label-width="120px" label-position="left">
+                    <el-form-item label="ID" required>
+                        <el-input v-model="advancedSearchForm.id" disabled></el-input>
+                    </el-form-item>
+                    <el-form-item label="物资称" required>
+                        <el-input v-model="advancedSearchForm.materialName"></el-input>
+                    </el-form-item>
+                    <el-form-item label="物资数量" required>
+                        <el-input v-model="advancedSearchForm.materialAmount"></el-input>
+                    </el-form-item>
+                    <el-form-item label="物资类型" required>
+                        <el-input v-model="advancedSearchForm.materialType"></el-input>
+                    </el-form-item>
+                    <el-form-item label="物资清点人" required>
+                        <el-input v-model="advancedSearchForm.materialCounter"></el-input>
+                    </el-form-item>
+                    <el-form-item label="清点人电话" required>
+                        <el-input v-model="advancedSearchForm.counterTelephone"></el-input>
+                    </el-form-item>
+                    <el-form-item label="物资编号" required>
+                        <el-input v-model="advancedSearchForm.materialNumber"></el-input>
+                    </el-form-item>
+                    <el-form-item label="物资清点时间" required>
+                            <el-date-picker v-model="advancedSearchForm.date" type="date" placeholder="选择日期"></el-date-picker>
+                    </el-form-item>
+                </el-form>
+                <template #footer>
+                    <span class="dialog-footer">
+                        <el-button @click="newDialogVisible = false">取 消</el-button>
+                        <el-button type="primary" @click="newDialogVisible = false;$message({type: 'success',message: '新建成功!'})">新 建</el-button>
+                    </span>
+                </template>
+            </el-dialog>
+  </div>
+</template>
+
+<script>
+import { materialMaintainInfo } from '../../mockData/index.js'
+export default {
+  data () {
+    return {
+      materialMaintainInfo: materialMaintainInfo,
+      editDialogVisible: false,
+      editForm: {
+        id: '',
+        materialName: '',
+        materialAmount: '',
+        materialType: '',
+        materialCounter: '',
+        counterTelephone: '',
+        materialNumber: '',
+        date: ''
+      },
+      newDialogVisible: false,
+      advancedSearchForm: {
+        id: '',
+        materialName: '',
+        materialAmount: '',
+        materialType: '',
+        materialCounter: '',
+        counterTelephone: '',
+        materialNumber: '',
+        date: ''
+      }
+    }
+  },
+  methods: {
+    handleEdit (row) {
+      this.editDialogVisible = true
+      for (const i in this.editForm) {
+        this.editForm[i] = row[i]
+      }
+    },
+    handleDelete (row) {
+      this.$confirm('此操作将永久删除该流程( ID：' + row.id + ' ), 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    }
+  }
+}
+</script>
+
+<style>
+
+</style>

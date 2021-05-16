@@ -16,6 +16,8 @@ import ExpertApproval from '../component/expert/Approval.vue'
 import EventMaintain from '../component/staff/EventMaintain.vue'
 import ProcessMaintain from '../component/staff/ProcessMaintain.vue'
 import EnterpriseMaintain from '../component/staff/EnterpriseMaintain.vue'
+import MateriaLocation from '../component/staff/MaterialLocation.vue'
+import MateriaMaintain from '../component/staff/MaterialMaintain.vue'
 
 const routes = [
   {
@@ -44,6 +46,14 @@ const routes = [
       {
         path: 'enterprisemaintain',
         component: EnterpriseMaintain
+      },
+      {
+        path: 'materialLocation',
+        component: MateriaLocation
+      },
+      {
+        path: 'materialmaintain',
+        component: MateriaMaintain
       }
     ]
   },
