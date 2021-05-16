@@ -13,6 +13,10 @@ import Approval from '../component/commander/Approval.vue'
 import ExpertReportHandle from '../component/expert/ReportHandle.vue'
 import ExpertApproval from '../component/expert/Approval.vue'
 
+import EventMaintain from '../component/staff/EventMaintain.vue'
+import ProcessMaintain from '../component/staff/ProcessMaintain.vue'
+import EnterpriseMaintain from '../component/staff/EnterpriseMaintain.vue'
+
 const routes = [
   {
     name: 'login',
@@ -27,7 +31,21 @@ const routes = [
   {
     name: 'staff',
     path: '/staff',
-    component: Staff
+    component: Staff,
+    children: [
+      {
+        path: 'eventmaintain',
+        component: EventMaintain
+      },
+      {
+        path: 'processmaintain',
+        component: ProcessMaintain
+      },
+      {
+        path: 'enterprisemaintain',
+        component: EnterpriseMaintain
+      }
+    ]
   },
   {
     name: 'expert',
