@@ -20,7 +20,7 @@
 export default {
   name: 'staff',
   mounted () {
-    this.styleObject.height = (Math.max(document.getBoundingClientRect().height, window.innerHeight) - this.$el.getBoundingClientRect().top) + 'px'
+    this.styleObject.height = (Math.max(document.querySelector('body').getBoundingClientRect().height, window.innerHeight) - this.$el.getBoundingClientRect().top) + 'px'
   }
 }
 </script>

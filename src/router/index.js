@@ -10,6 +10,9 @@ import ReportHandle from '../component/commander/ReportHandle.vue'
 import EmergencyHandle from '../component/commander/EmergencyHandle.vue'
 import Approval from '../component/commander/Approval.vue'
 
+import ExpertReportHandle from '../component/expert/ReportHandle.vue'
+import ExpertApproval from '../component/expert/Approval.vue'
+
 const routes = [
   {
     name: 'login',
@@ -29,7 +32,17 @@ const routes = [
   {
     name: 'expert',
     path: '/expert',
-    component: Expert
+    component: Expert,
+    children: [
+      {
+        path: 'reporthandle',
+        component: ExpertReportHandle
+      },
+      {
+        path: 'approval',
+        component: ExpertApproval
+      }
+    ]
   },
   {
     name: 'commander',

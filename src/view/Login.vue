@@ -98,7 +98,7 @@ export default {
         case '3': this.$router.push('/commander/reporthandle')
           this.$store.commit('login', { type: 'commander' })
           break
-        case '4': this.$router.push('/expert')
+        case '4': this.$router.push('/expert/reporthandle')
           this.$store.commit('login', { type: 'expert' })
           break
       }
