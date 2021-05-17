@@ -18,6 +18,9 @@ import ProcessMaintain from '../component/staff/ProcessMaintain.vue'
 import EnterpriseMaintain from '../component/staff/EnterpriseMaintain.vue'
 import MateriaLocation from '../component/staff/MaterialLocation.vue'
 import MateriaMaintain from '../component/staff/MaterialMaintain.vue'
+import ReportMaintain from '../component/staff/ReportMaintain.vue'
+import CityMaintain from '../component/staff/CityMaintain.vue'
+import TransportMaintain from '../component/staff/TransportMaintain.vue'
 
 const routes = [
   {
@@ -54,6 +57,18 @@ const routes = [
       {
         path: 'materialmaintain',
         component: MateriaMaintain
+      },
+      {
+        path: 'reportmaintain',
+        component: ReportMaintain
+      },
+      {
+        path: 'citymaintain',
+        component: CityMaintain
+      },
+      {
+        path: 'transportmaintain',
+        component: TransportMaintain
       }
     ]
   },

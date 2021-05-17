@@ -58,6 +58,47 @@
             </span>
         </template>
     </el-dialog>
+
+    <el-dialog title="新增" v-model="newDialogVisible" width="40%" center>
+        <el-form :model="editForm" label-width="80px" label-position="left">
+            <el-form-item label="ID" required>
+                <el-input v-model="editForm.id" disabled></el-input>
+            </el-form-item>
+            <el-form-item label="名称" required>
+                <el-input v-model="editForm.processName"></el-input>
+            </el-form-item>
+            <el-form-item label="类型" required>
+                <el-input v-model="editForm.type"></el-input>
+            </el-form-item>
+            <el-form-item label="类型编号" required>
+                <el-input v-model="editForm.typeNumber"></el-input>
+            </el-form-item>
+            <el-form-item label="内容" required>
+                <el-input v-model="editForm.content"></el-input>
+            </el-form-item>
+        </el-form>
+        <el-row>
+          <el-col :span="10">
+            <el-table style="width: 100%" stripe border :data="stepsTable" highlight-current-row @current-change="handleCurrentRowChange">
+              <el-table-column prop="step" label="步骤"></el-table-column>
+            </el-table>
+           <el-button type="text" @click="deleteStep">删除步骤</el-button>
+          </el-col>
+          <el-col :span="10" :offset="4">
+            <div>
+              <h4 style="height:30px;">步骤内容</h4>
+              <el-input type="textarea" :rows="3" placeholder="请输入步骤内容" v-model="newStep" resize="none"></el-input>
+              <el-button type="text" style="float:right" @click="addStep">增加步骤</el-button>
+            </div>
+          </el-col>
+        </el-row>
+        <template #footer>
+            <span class="dialog-footer">
+                <el-button @click="newDialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="newDialogVisible = false ;$message({type: 'success',message: '新增成功!'})">确 定</el-button>
+            </span>
+        </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -66,6 +107,7 @@ import { processMaintainInfo } from '../../mockData/index.js'
 export default {
   data () {
     return {
+      newDialogVisible: false,
       processMaintainInfo: processMaintainInfo,
       editDialogVisible: false,
       editForm: {
@@ -74,7 +116,17 @@ export default {
         type: '',
         typeNumber: '',
         content: ''
-      }
+      },
+      newStep: '',
+      stepsTable: [
+        {
+          step: '吃一个香蕉'
+        },
+        {
+          step: '睡一会'
+        }
+      ],
+      currentRow: ''
     }
   },
   methods: {
@@ -100,6 +152,16 @@ export default {
           message: '已取消删除'
         })
       })
+    },
+    addStep () {
+      this.stepsTable.push({ step: this.newStep })
+      this.newStep = ''
+    },
+    handleCurrentRowChange (current) {
+      this.currentRow = current
+    },
+    deleteStep () {
+      this.stepsTable = this.stepsTable.filter((item) => item.step !== this.currentRow.step)
     }
   }
 }

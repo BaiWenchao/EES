@@ -3,12 +3,8 @@
     <!-- 左侧导航栏 -->
     <el-col :span="3" class="container_left" :style="styleObject">
         <el-menu default-active="1" class="menu" router>
-            <el-menu-item index="1" class="menu_item">
-                <i class="el-icon-document-copy"></i>
-                <template #title>事件管理</template>
-            </el-menu-item>
             <el-menu-item index="/staff/eventmaintain" class="menu_item">
-                <i class="el-icon-document-checked"></i>
+                <i class="el-icon-document-copy"></i>
                 <template #title>事件维护</template>
             </el-menu-item>
             <el-menu-item index="/staff/materialmaintain" class="menu_item">
@@ -27,15 +23,11 @@
                 <i class="el-icon-school"></i>
                 <template #title>风险企业维护</template>
             </el-menu-item>
-            <el-menu-item index="7" class="menu_item">
+            <el-menu-item index="/staff/citymaintain" class="menu_item">
                 <i class="el-icon-office-building"></i>
                 <template #title>城市信息维护</template>
             </el-menu-item>
-            <el-menu-item index="8" class="menu_item">
-                <i class="el-icon-guide"></i>
-                <template #title>交通情况管理</template>
-            </el-menu-item>
-            <el-menu-item index="9" class="menu_item">
+            <el-menu-item index="/staff/reportmaintain" class="menu_item">
                 <i class="el-icon-phone-outline"></i>
                 <template #title>接报维护</template>
             </el-menu-item>

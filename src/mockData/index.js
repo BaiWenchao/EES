@@ -310,3 +310,86 @@ export const materialMaintainInfo = [
     date: '2021/9/1'
   }
 ]
+
+// 事件维护信息
+export const eventMaintainInfo = {
+  naturalDisaster: [
+    {
+      id: '1',
+      disasterName: '洪涝灾害',
+      disasterLevel: '2',
+      remarks: '处理及时，未造成伤亡'
+    },
+    {
+      id: '2',
+      disasterName: '地震',
+      disasterLevel: '1',
+      remarks: '根本没办法'
+    }
+  ],
+  humanDisaster: [
+    {
+      id: '1',
+      disasterName: '高速追尾',
+      disasterLevel: '2',
+      remarks: '处理及时，未造成伤亡'
+    },
+    {
+      id: '2',
+      disasterName: '溺水',
+      disasterLevel: '1',
+      remarks: '处理及时，未造成伤亡'
+    },
+    {
+      id: '2',
+      disasterName: '建筑火灾',
+      disasterLevel: '1',
+      remarks: '处理及时，未造成伤亡'
+    }
+  ]
+}
+
+// 城市信息
+export const cityMaintainInfo = [
+  {
+    id: '1',
+    cityName: '沈阳',
+    cityNumber: '23',
+    province: '辽宁',
+    people: '1000',
+    vehicle: '200'
+  },
+  {
+    id: '2',
+    cityName: '纽约',
+    cityNumber: '23',
+    province: '辽宁',
+    people: '1000',
+    vehicle: '200'
+  }
+]
+
+// 交通信息
+export const transportInfo = [
+  {
+    id: '1',
+    routeName: '安全一号通道',
+    routeStart: '浑南',
+    routeEnd: '和平',
+    length: '20km'
+  },
+  {
+    id: '2',
+    routeName: '安全2号通道',
+    routeStart: '浑南',
+    routeEnd: '和平',
+    length: '20km'
+  },
+  {
+    id: '3',
+    routeName: '安全3号通道',
+    routeStart: '浑南',
+    routeEnd: '和平',
+    length: '20km'
+  }
+]
