@@ -19,8 +19,8 @@
             </el-upload>
             <el-button type="text" icon="el-icon-search" style="float:right;margin-right:10px" @Click="searchDialogVisible=true">高级筛选</el-button>
             <el-button type="text" icon="el-icon-refresh-left" style="float:right;margin-right:5px" @click="filterList=userInfo">取消筛选</el-button>
-            <el-input size="mini" placeholder="输入关键字搜索" style="width:20%;float:right;margin-top:5px;">
-                <template #append><el-button icon="el-icon-search"></el-button></template>
+            <el-input size="mini" placeholder="输入关键字搜索" style="width:20%;float:right;margin-top:5px;" v-model="searchKey">
+                <template #append><el-button icon="el-icon-search" @click="handleSearch"></el-button></template>
             </el-input>
         </div>
 
@@ -106,33 +106,33 @@
             <template #footer>
                 <span class="dialog-footer">
                     <el-button @click="searchDialogVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="searchDialogVisible = false">筛 选</el-button>
+                    <el-button type="primary" @click="handleAdvancedSearch">筛 选</el-button>
                 </span>
             </template>
         </el-dialog>
 
         <el-dialog title="新建用户" v-model="newDialogVisible" width="40%" center>
-            <el-form :model="advancedSearchForm" label-width="80px" label-position="left">
+            <el-form :model="newForm" label-width="80px" label-position="left">
                 <el-form-item label="账号" required>
-                    <el-input v-model="advancedSearchForm.account"></el-input>
+                    <el-input v-model="newForm.account"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" required>
-                    <el-input v-model="advancedSearchForm.password"></el-input>
+                    <el-input v-model="newForm.password"></el-input>
                 </el-form-item>
                 <el-form-item label="性别" required>
-                    <el-select v-model="advancedSearchForm.sex">
+                    <el-select v-model="newForm.sex">
                         <el-option :value="'男'" :label="'男'"></el-option>
                         <el-option :value="'女'" :label="'女'"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="年龄" required>
-                    <el-input v-model="advancedSearchForm.age"></el-input>
+                    <el-input v-model="newForm.age"></el-input>
                 </el-form-item>
                 <el-form-item label="员工编号" required>
-                    <el-input v-model="advancedSearchForm.staffNumber"></el-input>
+                    <el-input v-model="newForm.staffNumber"></el-input>
                 </el-form-item>
                 <el-form-item label="员工类型" required>
-                    <el-select v-model="advancedSearchForm.type">
+                    <el-select v-model="newForm.type">
                         <el-option :value="'staff'" :label="'工作人员'"></el-option>
                         <el-option :value="'admin'" :label="'管理员'"></el-option>
                         <el-option :value="'commander'" :label="'指挥员'"></el-option>
@@ -140,7 +140,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="状态" required>
-                    <el-select v-model="advancedSearchForm.state">
+                    <el-select v-model="newForm.state">
                         <el-option :value="'normal'" :label="'正常'"></el-option>
                         <el-option :value="'disabled'" :label="'停用'"></el-option>
                     </el-select>
@@ -149,7 +149,7 @@
             <template #footer>
                 <span class="dialog-footer">
                     <el-button @click="newDialogVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="newDialogVisible = false;$message({type: 'success',message: '新建成功!'})">新 建</el-button>
+                    <el-button type="primary" @click="handleNew">新 建</el-button>
                 </span>
             </template>
         </el-dialog>
@@ -210,11 +210,23 @@ export default {
   name: 'admin',
   data () {
     return {
+      searchKey: '',
       styleObject: {},
       userInfo: userInfo,
       filterList: [],
       newDialogVisible: false,
       searchDialogVisible: false,
+      newForm: {
+        id: '',
+        account: '',
+        password: '',
+        sex: '',
+        regular: '=',
+        age: '',
+        staffNumber: '',
+        type: '',
+        state: ''
+      },
       advancedSearchForm: {
         id: '',
         account: '',
@@ -240,6 +252,46 @@ export default {
     }
   },
   methods: {
+    handleAdvancedSearch () {
+      this.filterList = this.userInfo.filter((item) => {
+        return Number(this.advancedSearchForm.id) === item.id
+      })
+      this.advancedSearchForm = {
+        id: '',
+        account: '',
+        password: '',
+        sex: '',
+        age: '',
+        staffNumber: '',
+        type: '',
+        state: ''
+      }
+      this.searchDialogVisible = false
+    },
+    handleNew () {
+      this.filterList.unshift({ ...this.newForm, id: 3 })
+      this.newForm = {
+        id: '',
+        account: '',
+        password: '',
+        sex: '',
+        regular: '=',
+        age: '',
+        staffNumber: '',
+        type: '',
+        state: ''
+      }
+      this.newDialogVisible = false
+      this.$message({ type: 'success', message: '新建成功!' })
+    },
+    handleSearch () {
+      this.filterList = this.userInfo.filter((item) => {
+        return item.account.includes(this.searchKey) || item.password.includes(this.searchKey) ||
+        item.sex.includes(this.searchKey) || item.age.includes(this.searchKey) || item.staffNumber.includes(this.searchKey) ||
+        item.type.includes(this.searchKey) || item.state.includes(this.searchKey)
+      })
+      this.searchKey = ''
+    },
     handleEdit (row) {
       this.editDialogVisible = true
       for (const i in this.editForm) {

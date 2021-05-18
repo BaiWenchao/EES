@@ -83,8 +83,11 @@ export default {
       }
     },
     login () {
-      if (this.loginForm.account === '1') {
-        this.$router.push('/admin')
+      if (this.loginForm.account === '' || this.loginForm.password === '') {
+        ElMessage.error({
+          message: '请填写完整！',
+          type: 'error'
+        })
       }
       switch (this.loginForm.account) {
         case '1':

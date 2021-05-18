@@ -37,7 +37,6 @@
         <div style="margin-top:20px;margin-right:10vw;">
           <el-button type="primary" style="float:right;margin-right:10px;" @click="handleContinue">继续</el-button>
           <el-button type="danger" style="float:right;margin-right:10px;" @click="handleReject">驳回</el-button>
-          <el-button type="success" style="float:right;margin-right:20px;" @click="handleAsk">询问专家</el-button>
         </div>
       </div>
   </div>
@@ -72,7 +71,6 @@
               <div style="margin-top:40px;margin-right:5vw;">
                 <el-button type="primary" style="float:right;margin-left:10px;" @click="handleAllow">通过</el-button>
                 <el-button type="danger" style="float:right;margin-left:10px;" @click="handleReject">驳回</el-button>
-                <el-button type="success" style="float:right;margin-left:10px;margin-right:20px;" @click="handleAsk">询问专家</el-button>
               </div>
             </el-col>
           </el-row>

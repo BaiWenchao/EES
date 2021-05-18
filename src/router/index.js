@@ -4,7 +4,7 @@ import Staff from '../view/Staff.vue'
 import Login from '../view/Login.vue'
 import Expert from '../view/Expert.vue'
 import Commander from '../view/Commander.vue'
-// import store from '../store/index'
+import store from '../store/index'
 
 import ReportHandle from '../component/commander/ReportHandle.vue'
 import EmergencyHandle from '../component/commander/EmergencyHandle.vue'
@@ -113,29 +113,12 @@ const router = createRouter({
   routes
 })
 
-// router.beforeEach((to) => {
-//   let allow = false
+router.beforeEach((to) => {
+  if (store.state.userInformation.type !== 'visitor' || to.path === '/') {
+    return true
+  }
 
-//   switch (store.state.userInformation.type) {
-//     case 'admin':
-//       // 可以去的路由
-//       to.name === 'admin' || to.name === 'login' ? allow = true : allow = '/'
-//       break
-//     case 'staff':
-//       // 可以去的路由
-
-//       break
-//     case 'commander':
-
-//       break
-//     case 'expert':
-
-//       break
-//     default:
-//       to.name === 'login' ? allow = true : allow = '/'
-//   }
-
-//   return allow
-// })
+  return '/'
+})
 
 export default router
