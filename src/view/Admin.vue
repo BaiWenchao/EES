@@ -269,6 +269,10 @@ export default {
       this.searchDialogVisible = false
     },
     handleNew () {
+      if (this.newForm.account === '') {
+        this.$message({ type: 'error', message: '请填写完整！' })
+        return
+      }
       this.filterList.unshift({ ...this.newForm, id: 3 })
       this.newForm = {
         id: '',

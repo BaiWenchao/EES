@@ -3,8 +3,8 @@
         <div>
             <el-button type="text" icon="el-icon-search" style="float:right;margin-right:10px" @Click="searchDialogVisible=true">高级筛选</el-button>
             <el-button type="text" icon="el-icon-refresh-left" style="float:right;margin-right:5px" @click="filterList=reportInfo">取消筛选</el-button>
-            <el-input size="mini" placeholder="输入关键字搜索" style="width:20%;float:right;margin-top:5px;">
-                <template #append><el-button icon="el-icon-search"></el-button></template>
+        <el-input size="mini" placeholder="输入关键字搜索" style="width:20%;float:right;margin-top:5px;" v-model="key">
+            <template #append><el-button icon="el-icon-search" @click="key=''"></el-button></template>
             </el-input>
         </div>
 
@@ -100,6 +100,7 @@ import { reportInfo } from '../../mockData/index.js'
 export default {
   data () {
     return {
+      key: '',
       reportInfo: reportInfo,
       filterList: [],
       searchDialogVisible: false,

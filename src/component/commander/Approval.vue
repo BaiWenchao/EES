@@ -33,7 +33,7 @@
       </el-row>
       <div class="suggestion_container">
         <h3>审批建议：</h3>
-        <div style="margin-right:10vw;margin-top:20px;"><el-input type="textarea" :rows="3" placeholder="请输入内容" resize="none"></el-input></div>
+        <div style="margin-right:10vw;margin-top:20px;"><el-input type="textarea" :rows="3" placeholder="请输入内容" resize="none" v-model="advice1"></el-input></div>
         <div style="margin-top:20px;margin-right:10vw;">
           <el-button type="primary" style="float:right;margin-right:10px;" @click="handleContinue">继续</el-button>
           <el-button type="danger" style="float:right;margin-right:10px;" @click="handleReject">驳回</el-button>
@@ -68,7 +68,7 @@
             </el-col>
             <el-col :span="10" style="border-left: 1px solid gray;">
               <h3 style="margin-left:20px;">审批建议：</h3>
-              <div style="margin-left:20px;margin-right:5vw;margin-top:20px;"><el-input type="textarea" :rows="13" placeholder="请输入内容" resize="none"></el-input></div>
+              <div style="margin-left:20px;margin-right:5vw;margin-top:20px;"><el-input type="textarea" :rows="13" placeholder="请输入内容" resize="none" v-model="advice2"></el-input></div>
               <div style="margin-top:40px;margin-right:5vw;">
                 <el-button type="primary" style="float:right;margin-left:10px;" @click="handleAllow">通过</el-button>
                 <el-button type="danger" style="float:right;margin-left:10px;" @click="handleReject">驳回</el-button>
@@ -84,6 +84,8 @@
 export default {
   data () {
     return {
+      advice1: '',
+      advice2: '',
       isStep1: true
     }
   },

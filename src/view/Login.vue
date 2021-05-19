@@ -73,6 +73,14 @@ export default {
           type: 'error'
         })
       } else {
+        const reg = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/
+        if (!reg.test(this.findPasswordForm.email)) {
+          ElMessage.error({
+            message: '请填写正确的邮箱',
+            type: 'error'
+          })
+          return
+        }
         this.findPasswordForm.account = ''
         this.findPasswordForm.email = ''
         ElMessage.success({

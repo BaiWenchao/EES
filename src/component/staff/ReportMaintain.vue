@@ -4,8 +4,8 @@
             <el-button type="text" icon="el-icon-document-add" style="margin-left:10px;margin-right:10px;" @click="newDialogVisible=true">新增</el-button>
             <el-button type="text" icon="el-icon-search" style="float:right;margin-right:10px" @Click="searchDialogVisible=true">高级筛选</el-button>
             <el-button type="text" icon="el-icon-refresh-left" style="float:right;margin-right:5px" @click="filterList=reportInfo">取消筛选</el-button>
-            <el-input size="mini" placeholder="输入关键字搜索" style="width:20%;float:right;margin-top:5px;">
-                <template #append><el-button icon="el-icon-search"></el-button></template>
+            <el-input size="mini" placeholder="输入关键字搜索" style="width:20%;float:right;margin-top:5px;" v-model="key">
+                <template #append><el-button icon="el-icon-search" @click="key=''"></el-button></template>
             </el-input>
         </div>
 
@@ -29,7 +29,7 @@
             <el-table-column prop="callerName" label="报警人" width="150"></el-table-column>
             <el-table-column prop="callerTelephone" label="报警人电话" width="150"></el-table-column>
             <el-table-column prop="callTime" label="接报时间" width="150"></el-table-column>
-            <el-table-column prop="state" label="账号状态" width="120">
+            <el-table-column prop="state" label="状态" width="120">
                 <template #default="scope"> <el-tag size="medium" :type="mapStateToTag(scope.row.state)" @click="stateFilter(scope.row.state)" style="cursor:pointer">{{ scope.row.state }}</el-tag></template>
             </el-table-column>
             <el-table-column align="center" label="操作">
@@ -132,7 +132,7 @@
               <span>王鑫</span>
           </el-form-item>
           <el-form-item label="事件名称" required>
-              <el-input v-model="advancedSearchForm.eventname"></el-input>
+              <el-input v-model="advancedSearchForm.eventName"></el-input>
           </el-form-item>
           <el-form-item label="报警人" required>
               <el-input v-model="advancedSearchForm.callerName"></el-input>
@@ -150,7 +150,7 @@
       <template #footer>
           <span class="dialog-footer">
               <el-button @click="newDialogVisible = false">取 消</el-button>
-              <el-button type="primary" @click="newDialogVisible = false">筛 选</el-button>
+              <el-button type="primary" @click="handleNew">新 增</el-button>
           </span>
       </template>
     </el-dialog>
@@ -161,6 +161,7 @@ import { reportInfo } from '../../mockData/index.js'
 export default {
   data () {
     return {
+      key: '',
       newDialogVisible: false,
       editDialogVisible: false,
       editForm: {
@@ -192,6 +193,25 @@ export default {
     }
   },
   methods: {
+    handleNew () {
+      if (this.advancedSearchForm.eventName === '') {
+        this.$message({ type: 'error', message: '请填写名称!' })
+        return
+      }
+      this.advancedSearchForm = {
+        id: '',
+        eventName: '',
+        number: '',
+        processNumber: '',
+        callerName: '',
+        callerTelephone: '',
+        callTime: '',
+        type: '',
+        state: ''
+      }
+      this.newDialogVisible = false
+      this.$message({ type: 'success', message: '新建成功!' })
+    },
     mapStateToTag (state) {
       switch (state) {
         case '通过':

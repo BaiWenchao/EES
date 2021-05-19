@@ -4,15 +4,15 @@
   <el-tab-pane :key="item.name" v-for="(item) in editableTabs" :label="item.title" :name="item.name">
     <div>
         <div style="border-bottom:1px solid rgb(245, 245, 245)">
-            <el-button type="text" icon="el-icon-document-add" style="margin-left:10px;margin-right:10px;" @click="newDialogVisible=true">新增</el-button>
-            <el-button type="text" icon="el-icon-search" style="float:right;margin-right:10px" @Click="searchDialogVisible=true">高级筛选</el-button>
-            <el-button type="text" icon="el-icon-refresh-left" style="float:right;margin-right:5px" @click="filterList=reportInfo">取消筛选</el-button>
-            <el-input size="mini" placeholder="输入关键字搜索" style="width:20%;float:right;margin-top:5px;">
-                <template #append><el-button icon="el-icon-search"></el-button></template>
+            <el-button type="text" icon="el-icon-document-add" style="margin-left:10px;margin-right:10px;" @click="current=item.name;newDialogVisible=true">新增</el-button>
+            <el-button type="text" icon="el-icon-search" style="float:right;margin-right:10px" @Click="searchDialogVisible=true;current=item.name">高级筛选</el-button>
+            <el-button type="text" icon="el-icon-refresh-left" style="float:right;margin-right:5px" @click="handelCancel">取消筛选</el-button>
+            <el-input size="mini" placeholder="输入关键字搜索" style="width:20%;float:right;margin-top:5px;" v-model="searchKey">
+                <template #append><el-button icon="el-icon-search" @click="current=item.name;handleSearch()"></el-button></template>
             </el-input>
         </div>
 
-        <el-table :data="eventMaintainInfo[item.name]" style="width: 100%" stripe>
+        <el-table :data="filterList[item.name]" style="width: 100%" stripe>
             <el-table-column prop="id" label="ID"></el-table-column>
             <el-table-column prop="disasterName" label="灾害名称"></el-table-column>
             <el-table-column prop="disasterLevel" label="灾害等级"></el-table-column>
@@ -57,8 +57,9 @@
                 </span>
             </template>
 
-            </el-dialog>
-                <el-dialog title="新增" v-model="newDialogVisible" width="40%" center>
+        </el-dialog>
+
+        <el-dialog title="新增" v-model="newDialogVisible" width="40%" center>
                     <el-form :model="advancedSearchForm" label-width="80px" label-position="left">
                         <el-form-item label="ID" required>
                             <el-input v-model="advancedSearchForm.id"></el-input>
@@ -76,10 +77,33 @@
                     <template #footer>
                         <span class="dialog-footer">
                             <el-button @click="newDialogVisible = false">取 消</el-button>
-                            <el-button type="primary" @click="newDialogVisible = false;$message({type: 'success',message: '新建成功!'})">新 建</el-button>
+                            <el-button type="primary" @click="handleNew">新 建</el-button>
                         </span>
                     </template>
-                </el-dialog>
+        </el-dialog>
+
+        <el-dialog title="高级筛选" v-model="searchDialogVisible" width="40%" center top="5vh">
+            <el-form :model="advancedSearchForm" label-width="80px" label-position="left">
+                <el-form-item label="ID">
+                    <el-input v-model="advancedSearchForm.id"></el-input>
+                </el-form-item>
+                <el-form-item label="事件名称">
+                    <el-input v-model="advancedSearchForm.disasterName"></el-input>
+                </el-form-item>
+                <el-form-item label="事件等级">
+                    <el-input v-model="advancedSearchForm.disasterLevel"></el-input>
+                </el-form-item>
+                <el-form-item label="备注">
+                    <el-input v-model="advancedSearchForm.remark"></el-input>
+                </el-form-item>
+            </el-form>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="searchDialogVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="handleAdvancedSearch">筛 选</el-button>
+                </span>
+            </template>
+        </el-dialog>
     </div>
   </el-tab-pane>
 </el-tabs>
@@ -91,6 +115,9 @@ import { eventMaintainInfo } from '../../mockData/index.js'
 export default {
   data () {
     return {
+      searchKey: '',
+      current: '',
+      searchDialogVisible: false,
       editableTabsValue: 'humanDisaster',
       editableTabs: [
         {
@@ -120,15 +147,72 @@ export default {
         disasterName: '',
         disasterLevel: '',
         remarks: ''
-      }
+      },
+      filterList: {}
     }
   },
+  created () {
+    this.filterList = JSON.parse(JSON.stringify(eventMaintainInfo))
+  },
   methods: {
+    handleNew () {
+      if (this.advancedSearchForm.id === '') {
+        this.$message({ type: 'error', message: '请填写ID!' })
+        return
+      }
+      if (this.advancedSearchForm.disasterName === '') {
+        this.$message({ type: 'error', message: '请填写名称!' })
+        return
+      }
+      if (this.advancedSearchForm.disasterLevel === '') {
+        this.$message({ type: 'error', message: '请填写等级!' })
+        return
+      }
+      if (this.advancedSearchForm.remarks === '') {
+        this.$message({ type: 'error', message: '请填写备注!' })
+        return
+      }
+      this.filterList[this.current].unshift(this.advancedSearchForm)
+      this.advancedSearchForm = {
+        id: '',
+        disasterName: '',
+        disasterLevel: '',
+        remarks: ''
+      }
+      this.newDialogVisible = false
+      this.$message({ type: 'success', message: '新建成功!' })
+    },
+    handleSearch () {
+      this.filterList[this.current] = this.filterList[this.current].filter((item) => {
+        return item.id.includes(this.searchKey) ||
+        item.remarks.includes(this.searchKey) || item.disasterName.includes(this.searchKey) || item.disasterLevel.includes(this.searchKey)
+      })
+      this.searchKey = ''
+    },
     handleEdit (row) {
       this.editDialogVisible = true
       for (const i in this.editForm) {
         this.editForm[i] = row[i]
       }
+    },
+    handelCancel () {
+      this.filterList = JSON.parse(JSON.stringify(eventMaintainInfo))
+    },
+    handleAdvancedSearch () {
+      this.filterList[this.current] = this.filterList[this.current].filter((item) => {
+        return this.advancedSearchForm.id === item.id
+      })
+      this.advancedSearchForm = {
+        id: '',
+        account: '',
+        password: '',
+        sex: '',
+        age: '',
+        staffNumber: '',
+        type: '',
+        state: ''
+      }
+      this.searchDialogVisible = false
     },
     handleDelete (row) {
       this.$confirm('此操作将永久删除该灾害( ID：' + row.id + ' ), 是否继续?', '提示', {
@@ -182,7 +266,6 @@ export default {
             }
           })
         }
-
         this.editableTabsValue = activeName
         this.$confirm('此操作将永久删除该分类！', '提示', {
           confirmButtonText: '确定',
