@@ -86,7 +86,7 @@
       <template #footer>
           <span class="dialog-footer">
               <el-button @click="searchDialogVisible = false">取 消</el-button>
-              <el-button type="primary" @click="searchDialogVisible = false">筛 选</el-button>
+              <el-button type="primary" @click="handleAdvancedSearch">筛 选</el-button>
           </span>
       </template>
   </el-dialog>
@@ -193,6 +193,21 @@ export default {
     }
   },
   methods: {
+    handleAdvancedSearch () {
+      this.filterList = this.filterList.filter((i) => i.id === this.advancedSearchForm.id)
+      this.advancedSearchForm = {
+        id: '',
+        eventName: '',
+        number: '',
+        processNumber: '',
+        callerName: '',
+        callerTelephone: '',
+        callTime: '',
+        type: '',
+        state: ''
+      }
+      this.searchDialogVisible = false
+    },
     handleNew () {
       if (this.advancedSearchForm.eventName === '') {
         this.$message({ type: 'error', message: '请填写名称!' })

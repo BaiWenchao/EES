@@ -3,13 +3,13 @@
     <div>
         <el-button type="text" icon="el-icon-document-add" style="margin-left:10px;margin-right:10px;" @click="newDialogVisible=true">新增</el-button>
         <el-button type="text" icon="el-icon-search" style="float:right;margin-right:10px" @Click="searchDialogVisible=true">高级筛选</el-button>
-        <el-button type="text" icon="el-icon-refresh-left" style="float:right;margin-right:5px" @click="filterList=reportInfo">取消筛选</el-button>
+        <el-button type="text" icon="el-icon-refresh-left" style="float:right;margin-right:5px" @click="filterList=materialMaintainInfo">取消筛选</el-button>
         <el-input size="mini" placeholder="输入关键字搜索" style="width:20%;float:right;margin-top:5px;" v-model="key">
             <template #append><el-button icon="el-icon-search" @click="key=''"></el-button></template>
         </el-input>
     </div>
 
-    <el-table :data="materialMaintainInfo" style="width: 100%" stripe>
+    <el-table :data="filterList" style="width: 100%" stripe>
         <el-table-column prop="id" label="ID"></el-table-column>
         <el-table-column prop="materialName" label="物资名称"></el-table-column>
         <el-table-column prop="materialAmount" label="物资数量"></el-table-column>
@@ -141,7 +141,7 @@
       <template #footer>
           <span class="dialog-footer">
               <el-button @click="searchDialogVisible = false">取 消</el-button>
-              <el-button type="primary" @click="searchDialogVisible = false">筛 选</el-button>
+              <el-button type="primary" @click="handleAdvancedSearch">筛 选</el-button>
           </span>
       </template>
   </el-dialog>
@@ -177,10 +177,25 @@ export default {
         counterTelephone: '',
         materialNumber: '',
         date: ''
-      }
+      },
+      filterList: materialMaintainInfo
     }
   },
   methods: {
+    handleAdvancedSearch () {
+      this.filterList = this.filterList.filter((i) => i.id === this.advancedSearchForm.id)
+      this.advancedSearchForm = {
+        id: '',
+        materialName: '',
+        materialAmount: '',
+        materialType: '',
+        materialCounter: '',
+        counterTelephone: '',
+        materialNumber: '',
+        date: ''
+      }
+      this.searchDialogVisible = false
+    },
     handleNew () {
       if (this.advancedSearchForm.id === '') {
         this.$message({ type: 'error', message: '请填写完整!' })

@@ -28,7 +28,7 @@ export const reportInfo = [
     state: '通过'
   },
   {
-    id: '001',
+    id: '002',
     eventName: '火灾',
     number: '001',
     processNumber: '001',
@@ -42,7 +42,7 @@ export const reportInfo = [
     state: '待审批'
   },
   {
-    id: '001',
+    id: '003',
     eventName: '火灾',
     number: '001',
     processNumber: '001',
@@ -56,7 +56,7 @@ export const reportInfo = [
     state: '通过'
   },
   {
-    id: '001',
+    id: '004',
     eventName: '火灾',
     number: '001',
     processNumber: '001',
@@ -247,19 +247,19 @@ export const materialLocationInfo = [
     address: '浑南区'
   },
   {
-    id: '001',
+    id: '002',
     locationName: '东北大学',
     locationDirector: '笑死',
     address: '浑南区'
   },
   {
-    id: '001',
+    id: '003',
     locationName: '东北大学',
     locationDirector: '笑死',
     address: '浑南区'
   },
   {
-    id: '001',
+    id: '004',
     locationName: '东北大学',
     locationDirector: '笑死',
     address: '浑南区'
@@ -279,7 +279,7 @@ export const materialMaintainInfo = [
     date: '2021/9/1'
   },
   {
-    id: '1',
+    id: '2',
     materialName: '签字笔',
     materialAmount: '90',
     materialType: '器材工具',
@@ -289,7 +289,7 @@ export const materialMaintainInfo = [
     date: '2021/9/1'
   },
   {
-    id: '1',
+    id: '3',
     materialName: '签字笔',
     materialAmount: '90',
     materialType: '器材工具',
@@ -299,7 +299,7 @@ export const materialMaintainInfo = [
     date: '2021/9/1'
   },
   {
-    id: '1',
+    id: '4',
     materialName: '签字笔',
     materialAmount: '90',
     materialType: '器材工具',

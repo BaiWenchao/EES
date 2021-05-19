@@ -242,6 +242,7 @@ export default {
             name: value
           })
           this.editableTabsValue = value
+          this.filterList[value] = []
           this.$message({
             type: 'success',
             message: '新建成功'

@@ -28,7 +28,7 @@
             <el-table-column prop="callerName" label="报警人" width="150"></el-table-column>
             <el-table-column prop="callerTelephone" label="报警人电话" width="150"></el-table-column>
             <el-table-column prop="callTime" label="接报时间" width="150"></el-table-column>
-            <el-table-column prop="state" label="账号状态" width="120">
+            <el-table-column prop="state" label="状态" width="120">
                 <template #default="scope"> <el-tag size="medium" :type="mapStateToTag(scope.row.state)" @click="stateFilter(scope.row.state)" style="cursor:pointer">{{ scope.row.state }}</el-tag></template>
             </el-table-column>
             <el-table-column align="center" label="操作">
