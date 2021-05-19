@@ -198,6 +198,7 @@ export default {
         this.$message({ type: 'error', message: '请填写名称!' })
         return
       }
+      this.filterList.unshift(this.advancedSearchForm)
       this.advancedSearchForm = {
         id: '',
         eventName: '',

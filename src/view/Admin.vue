@@ -41,8 +41,8 @@
             </el-table-column>
             <el-table-column align="center" label="操作">
                 <template #default="scope">
-                    <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
-                    <el-button size="mini" type="danger" @click="handleDelete(scope.row)">删除</el-button>
+                    <el-button size="mini" type="text" @click="handleEdit(scope.row)" icon="el-icon-document">编辑</el-button>
+                    <el-button size="mini" type="text" @click="handleDelete(scope.row)" icon="el-icon-warning-outline">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -69,7 +69,7 @@
                     <el-input v-model="advancedSearchForm.password"></el-input>
                 </el-form-item>
                 <el-form-item label="性别">
-                    <el-select v-model="advancedSearchForm.sex">
+                    <el-select v-model="advancedSearchForm.sex" placeholder="请选择">
                         <el-option :value="'男'" :label="'男'"></el-option>
                         <el-option :value="'女'" :label="'女'"></el-option>
                     </el-select>
@@ -77,7 +77,7 @@
                 <el-form-item label="年龄">
                     <el-input v-model="advancedSearchForm.age">
                         <template #prepend>
-                            <el-select v-model="advancedSearchForm.regular" style="width:100px;">
+                            <el-select v-model="advancedSearchForm.regular" style="width:100px;" placeholder="请选择">
                                 <el-option label="大 于" value=">"></el-option>
                                 <el-option label="等 于" value="="></el-option>
                                 <el-option label="小 于" value="<"></el-option>
@@ -89,7 +89,7 @@
                     <el-input v-model="advancedSearchForm.staffNumber"></el-input>
                 </el-form-item>
                 <el-form-item label="员工类型">
-                    <el-select v-model="advancedSearchForm.type">
+                    <el-select v-model="advancedSearchForm.type" placeholder="请选择">
                         <el-option :value="'staff'" :label="'工作人员'"></el-option>
                         <el-option :value="'admin'" :label="'管理员'"></el-option>
                         <el-option :value="'commander'" :label="'指挥员'"></el-option>
@@ -97,7 +97,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="状态">
-                    <el-select v-model="advancedSearchForm.state">
+                    <el-select v-model="advancedSearchForm.state" placeholder="请选择">
                         <el-option :value="'normal'" :label="'正常'"></el-option>
                         <el-option :value="'disabled'" :label="'停用'"></el-option>
                     </el-select>
@@ -132,7 +132,7 @@
                     <el-input v-model="newForm.staffNumber"></el-input>
                 </el-form-item>
                 <el-form-item label="员工类型" required>
-                    <el-select v-model="newForm.type">
+                    <el-select v-model="newForm.type" placeholder="请选择">
                         <el-option :value="'staff'" :label="'工作人员'"></el-option>
                         <el-option :value="'admin'" :label="'管理员'"></el-option>
                         <el-option :value="'commander'" :label="'指挥员'"></el-option>
@@ -140,7 +140,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="状态" required>
-                    <el-select v-model="newForm.state">
+                    <el-select v-model="newForm.state" placeholder="请选择">
                         <el-option :value="'normal'" :label="'正常'"></el-option>
                         <el-option :value="'disabled'" :label="'停用'"></el-option>
                     </el-select>
@@ -166,7 +166,7 @@
                     <el-input v-model="editForm.password"></el-input>
                 </el-form-item>
                 <el-form-item label="性别" required>
-                    <el-select v-model="editForm.sex">
+                    <el-select v-model="editForm.sex" placeholder="请选择">
                         <el-option :value="'男'" :label="'男'"></el-option>
                         <el-option :value="'女'" :label="'女'"></el-option>
                     </el-select>
@@ -178,7 +178,7 @@
                     <el-input v-model="editForm.staffNumber"></el-input>
                 </el-form-item>
                 <el-form-item label="员工类型" required>
-                    <el-select v-model="editForm.type">
+                    <el-select v-model="editForm.type" placeholder="请选择">
                         <el-option :value="'staff'" :label="'工作人员'"></el-option>
                         <el-option :value="'admin'" :label="'管理员'"></el-option>
                         <el-option :value="'commander'" :label="'指挥员'"></el-option>
@@ -324,18 +324,18 @@ export default {
     },
     mapTypeToTag (type) {
       switch (type) {
-        case 'expert':
+        case '专家':
           return 'success'
-        case 'commander':
+        case '指挥人员':
           return 'warning'
-        case 'admin':
+        case '超级管理员':
           return 'danger'
         default:
           return ''
       }
     },
     mapStateToTag (state) {
-      if (state === 'normal') return 'info'
+      if (state === '正常') return 'info'
       return 'danger'
     },
     mapSexToTag (sex) {

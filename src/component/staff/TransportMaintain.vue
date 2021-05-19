@@ -183,6 +183,7 @@ export default {
         this.$message({ type: 'error', message: '请填写完整!' })
         return
       }
+      this.transportInfo.unshift(this.advancedSearchForm)
       this.newDialogVisible = false
       this.$message({ type: 'success', message: '新建成功!' })
       this.advancedSearchForm = {
